@@ -68,3 +68,32 @@ def get_note():
         return jsonify(notes={"id": -1, "content": "", "err": True, "msg": "note doesn't exists"})
     conn.close()
     return jsonify(notes={"id": note[0], "content": decrypt(note[1])}), 200
+
+
+
+@note_routes.route('/note', methods=["DELETE"])
+def delete():
+    """ Return the note the user asked for (if he has it)"""
+
+    user_id = session.get('user_id')
+    note_id = request.args.get("note_id")
+    if not user_id or not note_id:
+        return jsonify({"msg": "Unauthorized"}), 401
+    
+    try:
+        conn = sqlite3.connect('database/app.db')
+        c = conn.cursor()
+        c.execute('DELETE FROM notes WHERE user_id = ? AND id = ?', (user_id, note_id))
+        conn.commit()
+        
+        if c.rowcount == 0:
+            return jsonify({"msg": "Unauthorized or note does not exist"}), 403
+       
+        return jsonify({"msg": "note deleted"}), 200
+    except Exception as e:
+        print(e)
+        conn.rollback()
+        return jsonify({"msg": f"an error occured"}), 500
+
+    finally:
+        conn.close()
