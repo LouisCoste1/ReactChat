@@ -97,3 +97,19 @@ def delete():
 
     finally:
         conn.close()
+
+
+@note_routes.route("/note", methods=["PUT"])
+def update_note():
+    """update and existing note"""
+
+    user_id = session.get("user_id")
+    data = request.get_json()
+    encrypted_content = encrypt(data['content'])
+    conn = sqlite3.connect('database/app.db')
+    c = conn.cursor()
+    c.execute('UPDATE  notes SET content = ?  WHERE id = ? AND user_id = ?', 
+              (encrypted_content, data["id"], user_id))
+    conn.commit()
+    conn.close()
+    return jsonify({"msg": "Note updated"}), 201
