@@ -9,7 +9,7 @@ bcrypt = Bcrypt()
 def register():
     data = request.get_json()
     hashed_password = bcrypt.generate_password_hash(data['password']).decode('utf-8')
-    conn = sqlite3.connect('app.db')
+    conn = sqlite3.connect('database/app.db')
     c = conn.cursor()
     try:
         c.execute('INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)', 
@@ -24,7 +24,7 @@ def register():
 @user_routes.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    conn = sqlite3.connect('app.db')
+    conn = sqlite3.connect('database/app.db')
     c = conn.cursor()
     c.execute('SELECT id, password_hash FROM users WHERE username = ? OR email = ?', (data['username'], data['username']))
     user = c.fetchone()
@@ -35,9 +35,10 @@ def login():
         return response
     return jsonify({"msg": "Bad username or password"}), 401
 
-@user_routes.route("/logout", methods=[""])
+@user_routes.route("/logout", methods=["POST"])
 def logout():
-    return
+    session.pop("user_id", None)
+    return jsonify({"msg": "Logged out successfully"}), 200
 
 @user_routes.route('/delete', methods=['DELETE'])
 def delete():
@@ -48,7 +49,7 @@ def delete():
         return jsonify({"msg": "Missing username or user_id"}), 400
 
     try:
-        conn = sqlite3.connect('app.db')
+        conn = sqlite3.connect('database/app.db')
         c = conn.cursor()
         c.execute('DELETE FROM users WHERE username = ? AND id = ?', (username_to_delete, request_user_id))
         conn.commit()
@@ -56,6 +57,7 @@ def delete():
         if c.rowcount == 0:
             return jsonify({"msg": "Unauthorized or user does not exist"}), 403
 
+        session.pop("user_id", None)
         return jsonify({"msg": "User deleted successfully"}), 200
     except Exception as e:
         conn.rollback()

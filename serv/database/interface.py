@@ -2,7 +2,7 @@ import sqlite3
 import os
 
 def init_db():
-    conn = sqlite3.connect('app.db')
+    conn = sqlite3.connect('database/app.db')
     c = conn.cursor()
     model_dir = "database/db_models"
 

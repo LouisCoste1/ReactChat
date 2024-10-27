@@ -1,0 +1,4 @@
+etc/
+etc/*
+__pycache__
+database/app.db
