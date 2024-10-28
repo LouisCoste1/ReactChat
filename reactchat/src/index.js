@@ -12,6 +12,7 @@ import {
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Notes from './pages/Notes';
+import Register from './pages/Register';
 import ErrorPage from "./error-page";
 
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login/>,
+  },
+  {
+    path: "/regiter",
+    element: <Register/>,
   },
   {
     path: "/",

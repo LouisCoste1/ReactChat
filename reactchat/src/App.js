@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Notes from './pages/Notes';
+import Register from './pages/Register';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Route path="/" component={Home} />
                 <Route path="/login" component={Login} />
                 <Route path="/notes" component={Notes} />
+                <Route path="/register" component={Register} />
             </Routes>
             
         </Router>

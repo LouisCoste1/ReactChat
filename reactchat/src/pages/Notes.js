@@ -9,7 +9,7 @@ const Notes = () => {
         { "title": "title 4", "content": "content four", "id": 4 },
     ];
 
-    const [displayedNoteId, setDisplayedNoteId] = useState(-1);
+    const [displayedNoteId, setDisplayedNoteId] = useState(-1); // used to keep track of which note to display when oppenig app
     const [noteContent, setNoteContent] = useState("");
     const [noteTitle, setNoteTitle] = useState("");
 
