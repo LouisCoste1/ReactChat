@@ -37,7 +37,8 @@ def login():
 
 @user_routes.route("/logout", methods=["POST"])
 def logout():
-    session.pop("user_id", None)
+    session.clear()
+    # session.pop("user_id", None)
     return jsonify({"msg": "Logged out successfully"}), 200
 
 @user_routes.route('/delete', methods=['DELETE'])
