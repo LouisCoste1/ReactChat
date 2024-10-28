@@ -1,6 +1,7 @@
 from flask import Flask
 from users import user_routes
 from notes import note_routes
+from flask_cors import CORS
 
 import os
 from datetime import timedelta
@@ -13,7 +14,7 @@ app.secret_key = os.getenv("flask_key", default="default")
 # app.config['SESSION_COOKIE_SECURE'] = True  # Cookies are only sent over HTTPS
 # cannot use this on dev but should on prod
 app.config['SESSION_COOKIE_HTTPONLY'] = True  # Prevents JavaScript access to the session cookie
-
+CORS(app)
 
 # Register blueprints for user and note routes
 app.register_blueprint(user_routes, url_prefix='/users')

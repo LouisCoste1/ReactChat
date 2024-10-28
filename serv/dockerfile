@@ -1,0 +1,37 @@
+FROM alpine:3.20
+
+LABEL maintainer="p4ul.claret@gmail.com" \
+      version="1.0" \
+      description="Flask backend for chat app"
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install Python and dependencies
+RUN apk add --no-cache \
+    python3 \
+    py3-pip \
+    build-base \
+    libffi-dev \
+    openssl-dev \
+    bash \
+    curl
+
+
+RUN python3 -m venv /venv
+ENV PATH="/venv/bin:$PATH"
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir gunicorn
+
+COPY . .
+
+EXPOSE 8000
+
+ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000", "main:app", "--workers", "4", "--threads", "2"]
+
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 CMD curl --fail http://localhost:8000 || exit 1
