@@ -63,7 +63,7 @@ const Notes = () => {
                 setNotes([...notes, { id: data["id_created"], title: noteTitle, content: noteContent }]);
                 setNoteTitle(noteTitle);
                 setNoteContent(noteContent);
-                setcurrentNoteID(data["id_created"]);
+                setcurrentNoteID(data["id_created"])
             }
             else {
                 alert("error: ", data['msg'])
