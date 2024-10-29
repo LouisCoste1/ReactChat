@@ -44,7 +44,7 @@ const Register = () => {
                     type="text"
                     placeholder="Email"
                     value={email}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
                     type="password"
