@@ -14,9 +14,9 @@ The backend is written in flask with an sqlite3 database
 - basic user functionalities (login, logout, register, delete)
 - notes encryption, read, write, update
 - sessions...
-- basically a basci backend
+- basically a basic backend
 
-The backend is written with React
+The frontend is written with React
 - Reactive components (states...)
 - SPA (single page application. no page reloads... async requests)
 - all functionalities of backend connected to frontend
