@@ -27,11 +27,12 @@ def create_note():
     encrypted_content = encrypt(data['content'])
     conn = sqlite3.connect('database/app.db')
     c = conn.cursor()
-    c.execute('INSERT INTO notes (user_id, content) VALUES (?, ?)', 
-              (user_id, encrypted_content))
+    c.execute('INSERT INTO notes (user_id, content, title) VALUES (?, ?, ?)', 
+              (user_id, encrypted_content, data["title"]))
+    newnoteid = c.lastrowid
     conn.commit()
     conn.close()
-    return jsonify({"msg": "Note created"}), 201
+    return jsonify({"msg": "Note created", "id_created": newnoteid}), 201
 
 @note_routes.route('/', methods=['GET'])
 def get_notes():
@@ -43,10 +44,10 @@ def get_notes():
     
     conn = sqlite3.connect('database/app.db')
     c = conn.cursor()
-    c.execute('SELECT id, content FROM notes WHERE user_id = ?', (user_id,))
+    c.execute('SELECT id, content, title FROM notes WHERE user_id = ?', (user_id,))
     notes = c.fetchall()
     conn.close()
-    return jsonify(notes=[{"id": note[0], "content": decrypt(note[1])} for note in notes]), 200
+    return jsonify(notes=[{"id": note[0], "content": decrypt(note[1]), "title": note[2]} for note in notes]), 200
     
 
 
@@ -108,8 +109,10 @@ def update_note():
     encrypted_content = encrypt(data['content'])
     conn = sqlite3.connect('database/app.db')
     c = conn.cursor()
-    c.execute('UPDATE  notes SET content = ?  WHERE id = ? AND user_id = ?', 
-              (encrypted_content, data["id"], user_id))
+    c.execute('UPDATE  notes SET content = ?, title = ? WHERE id = ? AND user_id = ?', 
+              (encrypted_content, data['title'], data["id"], user_id))
     conn.commit()
     conn.close()
+    if c.rowcount == 0:
+            return jsonify({"msg": "Unauthorized"}), 403
     return jsonify({"msg": "Note updated"}), 201
