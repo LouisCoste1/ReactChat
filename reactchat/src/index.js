@@ -11,6 +11,7 @@ import {
 
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Logout from './pages/Logout';
 import Notes from './pages/Notes';
 import Register from './pages/Register';
 import ErrorPage from "./error-page";
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/regiter",
     element: <Register/>,
+  },
+  {
+    path: "/logout",
+    element: <Logout/>,
   },
   {
     path: "/",

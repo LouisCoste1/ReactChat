@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Logout from './pages/Logout';
 import Notes from './pages/Notes';
 import Register from './pages/Register';
 
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/login" component={Login} />
                 <Route path="/notes" component={Notes} />
                 <Route path="/register" component={Register} />
+                <Route path="/logout" component={Logout} />
             </Routes>
             
         </Router>
