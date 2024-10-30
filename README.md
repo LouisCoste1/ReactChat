@@ -5,7 +5,7 @@ React note is a simple project made in two days to show our experience with reac
 
 ## Demo
 Here is an overview of what it looks like:
-![./demo_screencapture.png](./demo_screencapture.png)
+![./demo_screencapture.png](./demo.gif)
 
 
 ## Functionalities

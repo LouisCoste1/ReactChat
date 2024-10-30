@@ -19,7 +19,7 @@ const Notes = () => {
     useEffect(() => {
         const fetchNotes = async () => {
             try {
-                const response = await fetch('http://localhost:5000/notes', {
+                const response = await fetch('http://localhost/api/notes', {
                     method: 'GET',
                     credentials: 'include'
                 });
@@ -50,7 +50,7 @@ const Notes = () => {
     const handleSave = async () => {
         if (currentNoteID === -1) { // -2 in id to say it is new
             // user is creating a new note, save it a a new note
-            const response = await fetch("http://localhost:5000/notes/create", {
+            const response = await fetch("http://localhost/api/notes/create", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const Notes = () => {
         }
         else {
             // user is just saving a note that already existed
-            const response = await fetch("http://localhost:5000/notes/note", {
+            const response = await fetch("http://localhost/api/notes/note", {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ const Notes = () => {
             // use didn't click on any note, just the delte button: do nothing
             return
         }
-        const response = await fetch("http://localhost:5000/notes/note?" + new URLSearchParams({note_id: currentNoteID}).toString(), {
+        const response = await fetch("http://localhost/api/notes/note?" + new URLSearchParams({note_id: currentNoteID}).toString(), {
             method: "DELETE",
             credentials: "include"
         })

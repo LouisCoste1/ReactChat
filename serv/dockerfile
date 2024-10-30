@@ -30,8 +30,8 @@ RUN pip install --no-cache-dir gunicorn
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 5000
 
-ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:8000", "main:app", "--workers", "4", "--threads", "2"]
+ENTRYPOINT ["gunicorn", "--bind", "0.0.0.0:5000", "app:app", "--workers", "4", "--threads", "2"]
 
-HEALTHCHECK --interval=30s --timeout=10s --retries=3 CMD curl --fail http://localhost:8000 || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 CMD curl --fail http://localhost:5000 || exit 1

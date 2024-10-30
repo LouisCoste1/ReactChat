@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 
 const Logout = () => {
-    fetch('http://localhost:5000/users/logout', {
+    fetch('http://localhost/api/users/logout', {
         method: 'POST',
         credentials: 'include'
     }).then((resp) => {

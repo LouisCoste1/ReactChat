@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"  # Expose Nginx on port 80
+    depends_on:
+      - serv
+
+  serv:
+    build:
+      context: ./serv
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"  # Expose Flask on port 5000
+    environment:
+      - FLASK_ENV=production  # Set your Flask environment variables as needed
+      - flask_key=your_secret_key  # Replace with your actual secret key
