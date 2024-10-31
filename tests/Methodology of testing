@@ -1,0 +1,16 @@
+Endpoint-Based Testing: For each endpoint, create a dedicated test module or class. For example, have one module like test_login.py and another like test_notes.py, each containing relevant test functions.
+
+Scenario Coverage: For each endpoint, list functional scenarios:
+
+Happy Path: The ideal case where inputs are correct.
+Authentication Scenarios: Tests for both authenticated and unauthenticated states.
+Edge Cases: Boundary conditions, incorrect inputs, or invalid data types.
+Authorization (if applicable): Ensure access controls work (e.g., a user should only see their notes).
+Parameterized Tests: Where possible, use parameterization to reduce redundancy. For example, run a login test across multiple invalid inputs (empty password, wrong username, etc.) in a single test function.
+
+Standard Naming Convention: Use clear, descriptive names for tests. Examples:
+
+test_login_valid_credentials
+test_login_no_authentication
+test_notes_create_authenticated
+test_notes_create_unauthenticated
