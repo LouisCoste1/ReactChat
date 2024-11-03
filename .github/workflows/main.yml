@@ -30,15 +30,15 @@ jobs:
       - name: Build Nginx Docker Image
         working-directory: ./nginx  # Path to the Nginx folder
         run: |
-          docker build -t my-nginx-image .
+          docker build -t paulclrt/nginx .
 
       - name: Build Flask App Docker Image
         working-directory: ./serv  # Path to the Flask app
         run: |
-          docker build -t my-flask-image .
+          docker build -t paulclrt/serv .
 
       - name: Run Tests
         working-directory: ./serv  # Adjust to your testing directory if needed
         run: |
-          docker run my-flask-image pytest  # Adjust to your test command
+          docker run paulclrt/serv test
 
