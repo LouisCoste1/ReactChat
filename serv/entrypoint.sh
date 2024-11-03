@@ -10,8 +10,6 @@ if [ "$1" = "test" ]; then
     echo "Running tests..."
     pytest
     
-    # Bring the server back to the foreground
-    fg %1
 else
     echo "Starting Gunicorn..."
     exec gunicorn --bind 0.0.0.0:5000 app:app --workers 4 --threads 2
