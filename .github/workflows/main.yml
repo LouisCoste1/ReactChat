@@ -23,6 +23,9 @@ jobs:
         run: |
           npm install
           npm run build
+      - name: Move React build directory to root
+        run: |
+          cp -r reactchat/build nginx/
 
       - name: Build Nginx Docker Image
         working-directory: ./nginx  # Path to the Nginx folder
