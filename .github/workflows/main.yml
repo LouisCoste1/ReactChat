@@ -1,0 +1,41 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Adjust to your Node.js version
+
+      - name: Install Frontend Dependencies
+        working-directory: ./reactchat  # Path to the React app
+        run: |
+          npm install
+          npm run build
+
+      - name: Build Nginx Docker Image
+        working-directory: ./nginx  # Path to the Nginx folder
+        run: |
+          docker build -t my-nginx-image .
+
+      - name: Build Flask App Docker Image
+        working-directory: ./serv  # Path to the Flask app
+        run: |
+          docker build -t my-flask-image .
+
+      - name: Run Tests
+        working-directory: ./serv  # Adjust to your testing directory if needed
+        run: |
+          docker run my-flask-image pytest  # Adjust to your test command
+
