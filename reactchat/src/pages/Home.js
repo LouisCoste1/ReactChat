@@ -1,6 +1,5 @@
 // Home.js
-import React, { useState } from 'react';
-import { redirect } from "react-router-dom";
+import React from 'react';
 
 const Home = () => {
 
